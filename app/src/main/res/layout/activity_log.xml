@@ -21,12 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
         app:srcCompat="@drawable/hangar" />
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:text="Log Page"
-        android:background="@null"
 
 
     <LinearLayout

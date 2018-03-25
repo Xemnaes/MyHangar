@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -76,6 +77,10 @@ public class ScanActivity extends AppCompatActivity {
                 fos.close();
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
+                break;
+            case R.id.homebutton:
+                Intent m = new Intent(this, MainActivity.class);
+                startActivity(m);
                 break;
         }
     }
@@ -366,6 +371,8 @@ public class ScanActivity extends AppCompatActivity {
             } else {
                 progressBar.setVisibility(View.INVISIBLE);
                 progressText.setVisibility(View.INVISIBLE);
+                Button b = findViewById(R.id.addHanger);
+                b.setVisibility(View.VISIBLE);
                 //Insert plane registration #
                 TextView v = findViewById(R.id.aircraftReg);
                 v.setText(result[0]);
@@ -388,14 +395,5 @@ public class ScanActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.homebutton:
-                Intent m = new Intent(this, MainActivity.class);
-                startActivity(m);
-                break;
-        }
     }
 }
