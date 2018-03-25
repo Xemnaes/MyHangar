@@ -1,6 +1,8 @@
 package com.akinc.myhanger;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -167,8 +169,11 @@ public class ScanActivity extends AppCompatActivity {
         @Override
         protected String[] doInBackground(MyTaskParams... params) {
             try {
+                Log.d("Test","hello?");
                 //  Main function for what occurs in the background. Scans ticket, retrieves needed
                 //information, then parses the web/database for needed information.
+
+
                 String flightNo = params[0].flightNum;
                 exportString[2] = flightNo;
                 int[] tempDate = {params[0].year,params[0].month,params[0].day};
@@ -177,6 +182,10 @@ public class ScanActivity extends AppCompatActivity {
                 String tailno = fetchTailNum(flightNo, tempDate);
                 exportString[3] = tailno;
                 progressBar.setProgress(30);
+                Log.d("Test",tailno);
+                if(tailno==null) {
+                    return null;
+                }
                 // Second, find the plane model #
                 publishProgress("Fetching plane model...");
                 String modelno = fetchModelNum(tailno);
@@ -345,30 +354,48 @@ public class ScanActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] result)
         {
-            progressBar.setVisibility(View.INVISIBLE);
-            progressText.setVisibility(View.INVISIBLE);
-            TextView v0 = findViewById(R.id.addHanger);
-            v0.setVisibility(View.VISIBLE);
-            //Insert plane registration #
-            TextView v = findViewById(R.id.aircraftReg);
-            v.setText(result[0]);
-            //Insert plane model #
-            TextView v2 = findViewById(R.id.planeModel);
-            v2.setText(result[1]);
-            //Insert plane picture
-            ImageView iv = findViewById(R.id.planeImg);
-            InputStream is = null;
-            try {
-                is = new URL(result[2]).openStream();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(result==null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setMessage("Message")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                builder.show();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            } else {
+                progressBar.setVisibility(View.INVISIBLE);
+                progressText.setVisibility(View.INVISIBLE);
+                //Insert plane registration #
+                TextView v = findViewById(R.id.aircraftReg);
+                v.setText(result[0]);
+                //Insert plane model #
+                TextView v2 = findViewById(R.id.planeModel);
+                v2.setText(result[1]);
+                //Insert plane picture
+                ImageView iv = findViewById(R.id.planeImg);
+                InputStream is = null;
+                try {
+                    is = new URL(result[2]).openStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Bitmap planeImg = BitmapFactory.decodeStream(is);
+                iv.setImageBitmap(planeImg);
+                //Insert plane accident report (if there is one)
+                TextView v3 = findViewById(R.id.planeAccident);
+                v3.setText(result[3]);
             }
-            Bitmap planeImg = BitmapFactory.decodeStream(is);
-            iv.setImageBitmap(planeImg);
-            //Insert plane accident report (if there is one)
-            TextView v3 = findViewById(R.id.planeAccident);
-            v3.setText(result[3]);
         }
 
+    }
+
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.homebutton:
+                Intent m = new Intent(this, MainActivity.class);
+                startActivity(m);
+                break;
+        }
     }
 }

@@ -19,16 +19,17 @@
 
     <TextView
         android:id="@+id/aircraftReg"
-        android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_width="179dp"
+        android:layout_height="36dp"
         android:text=""
-        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintHorizontal_bias="0.165"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/planeModel"
@@ -43,6 +44,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
 
+    <TextView
+        android:id="@+id/planeAccident"
+        android:layout_width="350dp"
+        android:layout_height="280dp"
+        android:text=""
+        android:textAlignment="inherit"
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -52,10 +60,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintHorizontal_bias=".5"
-        android:minHeight="20dip"
-        android:minWidth="200dip" />
+        app:layout_constraintVertical_bias="0.857" />
 
     <TextView
         android:id="@+id/progressText"
@@ -116,5 +121,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.849" />
+
+    <Button
+        android:id="@+id/buttonClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/homebutton"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:onClick="onClick"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/hangar" />
 
 </android.support.constraint.ConstraintLayout>
